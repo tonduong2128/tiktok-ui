@@ -4,10 +4,14 @@
 :root{
     --primary: #fe2c55;
 }
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 html{
     font-size: 62.5%;
 }
-
 body {
     // font-family: 'Concert One', cursive;
     font-family: 'Montserrat', sans-serif;
