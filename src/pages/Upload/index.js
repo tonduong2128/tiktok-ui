@@ -1,11 +1,7 @@
-import React from 'react';
+import React from "react";
 
 function Upload(props) {
-    return (
-        <h2>
-            Upload
-        </h2>
-    );
+  return <h2>Upload</h2>;
 }
 
 export default Upload;
