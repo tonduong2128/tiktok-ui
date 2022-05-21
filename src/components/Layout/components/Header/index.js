@@ -10,7 +10,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import classNames from "classnames/bind";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import Tippy from "@tippyjs/react/headless";
 import "tippy.js/dist/tippy.css"; // optional
 
@@ -20,24 +20,29 @@ import Tooltip from "../Tooltip";
 import styles from "./Header.module.scss";
 import { Wrapper as PopperWrapper } from "../Popper";
 import AccountItem from "../AccountItem";
+import Button from "~/components/Button";
 
 const cx = classNames.bind(styles);
-
 function Header(props) {
   const [isFocus, setIsFocus] = useState(false);
   const [hasAccount, setHasAccount] = useState(false);
   const [isLoading, setIsLoading] = useState(undefined);
   const [search, setSearch] = useState("");
   const [searchResult, setSearchResult] = useState([]);
+  const idPreLoading = useRef(undefined);
+
   const handleInputOnchage = (e) => {
     setSearch(() => e.target.value);
     if (e.target.value === "") {
       setIsLoading(() => undefined);
     } else {
       setIsLoading(() => true);
-      setTimeout(() => {
+      if (idPreLoading.current != undefined) {
+        clearTimeout(idPreLoading);
+      }
+      idPreLoading.current = setTimeout(() => {
         setIsLoading(() => false);
-      }, 500);
+      }, 1000);
     }
   };
   const handleButtonClear = (e) => {
@@ -161,19 +166,18 @@ function Header(props) {
         ) : (
           <ul className={cx("tool")}>
             <li>
-              <a href="#">
-                <button className={cx("btn", "btn-upload")}>Upload</button>
-              </a>
+              <Button
+                onClick={(e) => console.log("Heelo")}
+                outline
+                className={cx("btn-upload")}
+              >
+                Upload
+              </Button>
             </li>
             <li>
-              <a href="#">
-                <button
-                  onClick={handleOnLogin}
-                  className={cx("btn", "btn-login")}
-                >
-                  Login
-                </button>
-              </a>
+              <Button primary onClick={handleOnLogin}>
+                Login
+              </Button>
             </li>
             <li>
               <a href="#">
