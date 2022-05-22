@@ -1,3 +1,4 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import classNames from "classnames/bind";
 import React from "react";
 import { Link } from "react-router-dom";
@@ -16,11 +17,15 @@ function Button({
   large,
   disable,
   className,
+  iconLeft,
+  iconRight,
+  sizeIcon,
   ...rest
 }) {
   let Comp = "button";
   const props = {
     onClick,
+    ...rest,
   };
   if (disable) {
     delete props.onClick;
@@ -32,10 +37,30 @@ function Button({
     Comp = "a";
     props.href = href;
   }
-  const classes = cx("wrapper", { primary, outline, small, large, disable });
+  const classes = cx("wrapper", className, {
+    primary,
+    outline,
+    small,
+    large,
+    disable,
+  });
   return (
-    <Comp className={`${className} ${classes}`} {...props} {...rest}>
+    <Comp className={classes} {...props}>
+      {iconLeft && (
+        <FontAwesomeIcon
+          className={cx("icon-left")}
+          fontSize={sizeIcon}
+          icon={iconLeft}
+        />
+      )}
       <span>{children}</span>
+      {iconRight && (
+        <FontAwesomeIcon
+          className={cx("icon-right")}
+          fontSize={sizeIcon}
+          icon={iconRight}
+        />
+      )}
     </Comp>
   );
 }

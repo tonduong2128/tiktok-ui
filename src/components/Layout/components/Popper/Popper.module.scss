@@ -1,9 +1,9 @@
 .wrapper {
   width: 100%;
-  background: var(--white);
-  box-shadow: rgb(0 0 0 / 12%) 0px 2px 12px;
+  background-color: var(--white);
+  box-shadow: 3px 3px 4px 4px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   max-height: min((100vh - 96px) - 60px, 734px);
-  overflow-y: hidden auto;
-  padding-top: 8px;
+  // overflow-y: hidden auto;
+  padding: 8px 0;
 }
