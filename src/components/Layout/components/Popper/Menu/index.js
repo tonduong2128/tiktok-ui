@@ -8,23 +8,22 @@ import MenuItem from "./MenuItem";
 
 const cx = classNames.bind(styles);
 
-function Menu({ children, items = [], ...rest }) {
+function Menu({ children, items = [], onChange: menuOnChange, ...rest }) {
   const [history, setHistory] = useState([{ data: items }]);
   const current = history[history.length - 1];
   const handleClickBack = (e) => {
-    setHistory((history) => {
-      return [...history.slice(0, history.length - 1)];
-    });
+    setHistory((history) => history.slice(0, history.length - 1));
   };
 
   const renderItems = () => {
     return current.data.map((item, index) => {
       let handleClickItem;
-      if (item.children) {
-        handleClickItem = (e) => {
+      handleClickItem = (e) => {
+        if (item.children) {
           setHistory((history) => [...history, item.children]);
-        };
-      }
+        }
+        menuOnChange(item);
+      };
       return <MenuItem data={item} onClick={handleClickItem} key={index} />;
     });
   };
@@ -41,6 +40,7 @@ function Menu({ children, items = [], ...rest }) {
           <div className={cx("menu-content")}>{renderItems()}</div>
         </PopperWrapper>
       )}
+      onHidden={() => setHistory((history) => history.slice(0, 1))}
     >
       {children}
     </Tippy>

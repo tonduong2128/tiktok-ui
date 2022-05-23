@@ -21,6 +21,7 @@ import React, { Fragment, useRef, useState } from "react";
 import "tippy.js/dist/tippy.css"; // optional
 import images from "~/assets/images";
 import Button from "~/components/Button";
+import Image from "~/components/Image";
 import AccountItem from "../AccountItem";
 import { Wrapper as PopperWrapper } from "../Popper";
 import Menu from "../Popper/Menu";
@@ -59,14 +60,17 @@ const MENU_ITEMS_USER = [
   {
     icon: faUber,
     title: "View profile",
+    to: "/@_tonduong",
   },
   {
     icon: faTiktok,
     title: "Get coins",
+    to: "/coins",
   },
   {
     icon: faGear,
     title: "Setting",
+    to: "/setting",
   },
   {
     icon: faLanguage,
@@ -97,6 +101,9 @@ function Header(props) {
   // const [searchResult, setSearchResult] = useState([]);
   const idPreLoading = useRef(undefined);
 
+  const handleMenuOnChange = (menuItem) => {
+    console.log(menuItem);
+  };
   const handleInputOnchage = (e) => {
     setSearch(() => e.target.value);
     if (e.target.value === "") {
@@ -131,7 +138,7 @@ function Header(props) {
     <header className={cx("wrapper")}>
       <div className={cx("inner")}>
         <a href="#" className={cx("logo")}>
-          <img src={images.logo} alt="Tiktok" />
+          <Image src={images.logo} alt="Tiktok" />
         </a>
         <Tippy
           visible={isLoading !== undefined}
@@ -248,10 +255,9 @@ function Header(props) {
                   delay={[0, 200]}
                   items={MENU_ITEMS_USER}
                   placement="bottom-end"
-                  visible
                 >
                   <button className={cx("btn-icon", "avatar")}>
-                    <img
+                    <Image
                       src="https://p16-sign-sg.tiktokcdn.com/aweme/720x720/tiktok-obj/1666368916613121.jpeg?x-expires=1653040800&x-signature=qdVhxeP4D%2F2Wcw8A%2FmMhkmApLlI%3D"
                       alt="Avatar"
                     />
@@ -285,6 +291,7 @@ function Header(props) {
                   delay={[0, 200]}
                   placement="bottom-end"
                   items={MENU_ITEMS}
+                  onChange={handleMenuOnChange}
                 >
                   <button className={cx("btn-more")}>
                     <FontAwesomeIcon icon={faEllipsisVertical} />

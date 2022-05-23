@@ -20,6 +20,7 @@ function Button({
   iconLeft,
   iconRight,
   sizeIcon,
+  outlineBlack,
   ...rest
 }) {
   let Comp = "button";
@@ -43,6 +44,7 @@ function Button({
     small,
     large,
     disable,
+    outlineBlack,
   });
   return (
     <Comp className={classes} {...props}>

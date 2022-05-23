@@ -37,6 +37,10 @@
     background-color: rgba(254, 44, 85, 0.06);
   }
 }
+.outlineBlack {
+  outline: 1px solid #ccc !important;
+}
+
 //Disable
 .disable {
   pointer-events: none;
