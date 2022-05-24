@@ -8,49 +8,44 @@ import HeadlessTippy from "@tippyjs/react/headless";
 import classNames from "classnames/bind";
 import React, { useEffect, useRef, useState } from "react";
 import Button from "~/components/Button";
+import { useDebounce } from "~/hooks";
 import AccountItem from "../AccountItem";
 import { Wrapper as PopperWrapper } from "../Popper";
 import styles from "./Search.module.scss";
 
 const cx = classNames.bind(styles);
 
-function Search({ className }) {
-  const [isFocusInput, setIsFocusInput] = useState(false);
-  const [isLoading, setIsLoading] = useState(undefined);
-  const [searchValue, setSearchValue] = useState("");
-  const idPreLoading = useRef(undefined);
+function Search(props) {
   const inputRef = useRef();
+  const [isFocusInput, setIsFocusInput] = useState(false);
+  const [searchValue, setSearchValue] = useState("");
+  const deboundceSearch = useDebounce(searchValue, 500);
+  const [isLoading, setIsLoading] = useState(undefined);
   const [searchResult, setSearchResult] = useState([]);
 
   useEffect(() => {
-    if (searchValue === "") {
+    if (deboundceSearch === "") {
       setIsLoading(() => undefined);
       setSearchResult(() => []);
-      clearTimeout(idPreLoading.current);
     } else {
-      if (idPreLoading.current !== undefined) {
-        setIsLoading(() => false);
-        clearTimeout(idPreLoading.current);
-      }
-      idPreLoading.current = setTimeout(() => {
-        setIsLoading(() => true);
-        fetch(
-          `https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(
-            searchValue
-          )}&type=less`
-        )
-          .then((data) => data.json())
-          .then((result) => {
-            setSearchResult(result.data || []);
-            setIsLoading(() => false);
-          })
-          .catch(() => {
-            setSearchResult(() => []);
-            setIsLoading(() => false);
-          });
-      }, 500);
+      setIsLoading(() => true);
+      fetch(
+        `https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(
+          deboundceSearch
+        )}&type=less`
+      )
+        .then((data) => data.json())
+        .then((result) => {
+          setSearchResult(result.data || []);
+        })
+        .catch(() => {
+          setSearchResult(() => []);
+        })
+        .finally(() => {
+          setIsLoading(() => false);
+        });
     }
-  }, [searchValue]);
+  }, [deboundceSearch]);
   const handleButtonClear = (e) => {
     setSearchValue(() => "");
     setIsLoading(() => undefined);
@@ -58,25 +53,21 @@ function Search({ className }) {
     inputRef.current.focus();
   };
   const handleClickSearch = (e) => {
-    if (searchValue !== "") {
-      if (idPreLoading.current !== undefined) {
-        setIsLoading(() => false);
-        clearTimeout(idPreLoading.current);
-      }
-      idPreLoading.current = setTimeout(() => {
-        setIsLoading(() => true);
-        fetch(
-          `https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(
-            searchValue
-          )}&type=more`
-        )
-          .then((data) => data.json())
-          .then((result) => {
-            setSearchResult(result.data || []);
-            setIsLoading(() => false);
-          })
-          .catch(() => setSearchResult(() => []));
-      }, 0);
+    if (deboundceSearch !== "") {
+      setIsLoading(() => true);
+      fetch(
+        `https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(
+          deboundceSearch
+        )}&type=more`
+      )
+        .then((data) => data.json())
+        .then((result) => {
+          setSearchResult(result.data || []);
+        })
+        .catch(() => setSearchResult(() => []))
+        .finally(() => {
+          setIsLoading(() => false);
+        });
     }
   };
   return (
