@@ -21,6 +21,7 @@ function Button({
   iconRight,
   sizeIcon,
   outlineBlack,
+  empty,
   ...rest
 }) {
   let Comp = "button";
@@ -55,7 +56,7 @@ function Button({
           icon={iconLeft}
         />
       )}
-      <span>{children}</span>
+      {empty ? children : <span>{children}</span>}
       {iconRight && (
         <FontAwesomeIcon
           className={cx("icon-right")}

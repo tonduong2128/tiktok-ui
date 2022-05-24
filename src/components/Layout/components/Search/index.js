@@ -6,7 +6,8 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import HeadlessTippy from "@tippyjs/react/headless";
 import classNames from "classnames/bind";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import Button from "~/components/Button";
 import AccountItem from "../AccountItem";
 import { Wrapper as PopperWrapper } from "../Popper";
 import styles from "./Search.module.scss";
@@ -21,26 +22,62 @@ function Search({ className }) {
   const inputRef = useRef();
   const [searchResult, setSearchResult] = useState([]);
 
-  const handleInputOnchage = (e) => {
-    setSearchValue(() => e.target.value);
-    if (e.target.value === "") {
+  useEffect(() => {
+    if (searchValue === "") {
       setIsLoading(() => undefined);
+      setSearchResult(() => []);
+      clearTimeout(idPreLoading.current);
     } else {
-      setIsLoading(() => true);
       if (idPreLoading.current !== undefined) {
-        clearTimeout(idPreLoading);
+        setIsLoading(() => false);
+        clearTimeout(idPreLoading.current);
       }
       idPreLoading.current = setTimeout(() => {
-        setIsLoading(() => false);
-        setSearchResult(() => [121]);
-      }, 1000);
+        setIsLoading(() => true);
+        fetch(
+          `https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(
+            searchValue
+          )}&type=less`
+        )
+          .then((data) => data.json())
+          .then((result) => {
+            setSearchResult(result.data || []);
+            setIsLoading(() => false);
+          })
+          .catch(() => {
+            setSearchResult(() => []);
+            setIsLoading(() => false);
+          });
+      }, 500);
     }
-  };
+  }, [searchValue]);
   const handleButtonClear = (e) => {
     setSearchValue(() => "");
     setIsLoading(() => undefined);
     setSearchResult(() => []);
     inputRef.current.focus();
+  };
+  const handleClickSearch = (e) => {
+    if (searchValue !== "") {
+      if (idPreLoading.current !== undefined) {
+        setIsLoading(() => false);
+        clearTimeout(idPreLoading.current);
+      }
+      idPreLoading.current = setTimeout(() => {
+        setIsLoading(() => true);
+        fetch(
+          `https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(
+            searchValue
+          )}&type=more`
+        )
+          .then((data) => data.json())
+          .then((result) => {
+            setSearchResult(result.data || []);
+            setIsLoading(() => false);
+          })
+          .catch(() => setSearchResult(() => []));
+      }, 0);
+    }
   };
   return (
     <HeadlessTippy
@@ -53,18 +90,11 @@ function Search({ className }) {
           <PopperWrapper>
             <h4 className={cx("search-title")}>Accounts</h4>
             <ul className={cx("accounts-result")}>
-              <li>
-                <AccountItem />
-              </li>
-              <li>
-                <AccountItem />
-              </li>
-              <li>
-                <AccountItem />
-              </li>
-              <li>
-                <AccountItem />
-              </li>
+              {searchResult.map((account) => (
+                <li key={account.id}>
+                  <AccountItem account={account} />
+                </li>
+              ))}
             </ul>
           </PopperWrapper>
         </div>
@@ -77,7 +107,7 @@ function Search({ className }) {
           className={cx("input")}
           onFocus={() => setIsFocusInput(() => true)}
           value={searchValue}
-          onChange={handleInputOnchage}
+          onChange={(e) => setSearchValue(() => e.target.value.trim() || "")}
           ref={inputRef}
         />
         <button
@@ -95,13 +125,14 @@ function Search({ className }) {
         >
           <FontAwesomeIcon icon={faSpinner} />
         </div>
-        <button
+        <Button
+          onClick={handleClickSearch}
           className={cx("search-btn", {
             searching: isLoading !== undefined,
           })}
         >
           <FontAwesomeIcon icon={faMagnifyingGlass} />
-        </button>
+        </Button>
       </div>
     </HeadlessTippy>
   );
