@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import HeadlessTippy from "@tippyjs/react/headless";
 import classNames from "classnames/bind";
 import React, { useEffect, useRef, useState } from "react";
+import * as request from "~/api-service/searchServices";
 import Button from "~/components/Button";
 import { useDebounce } from "~/hooks";
 import AccountItem from "../AccountItem";
@@ -27,24 +28,14 @@ function Search(props) {
     if (deboundceSearch === "") {
       setIsLoading(() => undefined);
       setSearchResult(() => []);
-    } else {
-      setIsLoading(() => true);
-      fetch(
-        `https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(
-          deboundceSearch
-        )}&type=less`
-      )
-        .then((data) => data.json())
-        .then((result) => {
-          setSearchResult(result.data || []);
-        })
-        .catch(() => {
-          setSearchResult(() => []);
-        })
-        .finally(() => {
-          setIsLoading(() => false);
-        });
+      return;
     }
+    (async () => {
+      setIsLoading(() => true);
+      const result = await request.search(deboundceSearch);
+      setSearchResult(result || []);
+      setIsLoading(() => false);
+    })();
   }, [deboundceSearch]);
   const handleButtonClear = (e) => {
     setSearchValue(() => "");
@@ -54,21 +45,20 @@ function Search(props) {
   };
   const handleClickSearch = (e) => {
     if (deboundceSearch !== "") {
-      setIsLoading(() => true);
-      fetch(
-        `https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(
-          deboundceSearch
-        )}&type=more`
-      )
-        .then((data) => data.json())
-        .then((result) => {
-          setSearchResult(result.data || []);
-        })
-        .catch(() => setSearchResult(() => []))
-        .finally(() => {
-          setIsLoading(() => false);
-        });
+      return;
     }
+    (async () => {
+      setIsLoading(() => true);
+      if (deboundceSearch === "") {
+        setIsLoading(() => undefined);
+        setSearchResult(() => []);
+      } else {
+        setIsLoading(() => true);
+        const result = await request.search(deboundceSearch, "more");
+        setSearchResult(result || []);
+        setIsLoading(() => false);
+      }
+    })();
   };
   return (
     <HeadlessTippy
