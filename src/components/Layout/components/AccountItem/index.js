@@ -9,7 +9,7 @@ const cx = classNames.bind(styles);
 function AccountItem({ account }) {
   const { full_name, avatar, nickname, tick } = account;
   return (
-    <Button empty className={cx("wrapper")} href={`./@${nickname}`}>
+    <Button empty className={cx("wrapper")} href={`/@${nickname}`}>
       <Image
         className={cx("avatar")}
         src={avatar}

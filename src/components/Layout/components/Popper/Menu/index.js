@@ -8,7 +8,13 @@ import MenuItem from "./MenuItem";
 
 const cx = classNames.bind(styles);
 
-function Menu({ children, items = [], onChange: menuOnChange, ...rest }) {
+function Menu({
+  children,
+  hideOnClick = false,
+  items = [],
+  onChange: menuOnChange,
+  ...rest
+}) {
   const [history, setHistory] = useState([{ data: items }]);
   const current = history[history.length - 1];
   const handleClickBack = (e) => {
@@ -32,6 +38,7 @@ function Menu({ children, items = [], onChange: menuOnChange, ...rest }) {
     <Tippy
       interactive
       {...rest}
+      hideOnClick={false}
       render={(attrs) => (
         <PopperWrapper className={cx("menu-list")} tabIndex="-1" {...attrs}>
           {current.title && (

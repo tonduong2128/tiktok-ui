@@ -5,15 +5,16 @@ import Home from "../pages/Home/indes";
 import NotFound from "../pages/NotFound";
 import { HeaderOnly } from "../components/Layout";
 import Search from "../pages/Search/indes";
+import routes from "~/config/routes";
 
 const publicRoute = [
   // không cần đăng nhập
-  { path: "/", component: Home },
-  { path: "/follwing", component: Following },
-  { path: "/@:nickname", component: Profile },
-  { path: "/upload", component: Upload, layout: HeaderOnly },
-  { path: "/search", component: Search, layout: null },
-  { path: "*", component: NotFound, layout: null },
+  { path: routes.home, component: Home },
+  { path: routes.follwing, component: Following },
+  { path: routes.profile, component: Profile },
+  { path: routes.upload, component: Upload, layout: HeaderOnly },
+  { path: routes.search, component: Search, layout: null },
+  { path: routes.NotFound, component: NotFound, layout: null },
 ];
 const privateRoute = [
   // cần đăng nhập

@@ -25,6 +25,8 @@ import Image from "~/components/Image";
 import Menu from "../Popper/Menu";
 import Search from "../Search";
 import styles from "./Header.module.scss";
+import { Link } from "react-router-dom";
+import routes from "~/config/routes";
 
 const MENU_ITEMS = [
   {
@@ -112,9 +114,9 @@ function Header(props) {
   return (
     <header className={cx("wrapper")}>
       <div className={cx("inner")}>
-        <a href="#" className={cx("logo")}>
+        <Link to={routes.home} className={cx("logo")}>
           <Image src={images.logo} alt="Tiktok" />
-        </a>
+        </Link>
         <Search />
         <ul className={cx("actions")}>
           {hasAccount ? (

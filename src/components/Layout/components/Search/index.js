@@ -88,7 +88,9 @@ function Search(props) {
           className={cx("input")}
           onFocus={() => setIsFocusInput(() => true)}
           value={searchValue}
-          onChange={(e) => setSearchValue(() => e.target.value.trim() || "")}
+          onChange={(e) =>
+            setSearchValue(() => e.target.value.trimStart() || "")
+          }
           ref={inputRef}
         />
         <button
