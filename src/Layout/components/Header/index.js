@@ -34,7 +34,105 @@ const MENU_ITEMS = [
     title: "English",
     children: {
       title: "Languge",
+      // eslint-disable-next-line
       data: [
+        {
+          code: "en",
+          title: "English",
+        },
+        {
+          code: "vn",
+          title: "Tiếng Việt",
+        },
+        {
+          code: "en",
+          title: "English",
+        },
+        {
+          code: "vn",
+          title: "Tiếng Việt",
+        },
+        {
+          code: "en",
+          title: "English",
+        },
+        {
+          code: "vn",
+          title: "Tiếng Việt",
+        },
+        {
+          code: "en",
+          title: "English",
+        },
+        {
+          code: "vn",
+          title: "Tiếng Việt",
+        },
+        {
+          code: "en",
+          title: "English",
+        },
+        {
+          code: "vn",
+          title: "Tiếng Việt",
+        },
+        {
+          code: "en",
+          title: "English",
+        },
+        {
+          code: "vn",
+          title: "Tiếng Việt",
+        },
+        {
+          code: "en",
+          title: "English",
+        },
+        {
+          code: "vn",
+          title: "Tiếng Việt",
+        },
+        ,
+        {
+          code: "en",
+          title: "English",
+        },
+        {
+          code: "vn",
+          title: "Tiếng Việt",
+        },
+        {
+          code: "en",
+          title: "English",
+        },
+        {
+          code: "vn",
+          title: "Tiếng Việt",
+        },
+        {
+          code: "en",
+          title: "English",
+        },
+        {
+          code: "vn",
+          title: "Tiếng Việt",
+        },
+        {
+          code: "en",
+          title: "English",
+        },
+        {
+          code: "vn",
+          title: "Tiếng Việt",
+        },
+        {
+          code: "en",
+          title: "English",
+        },
+        {
+          code: "vn",
+          title: "Tiếng Việt",
+        },
         {
           code: "en",
           title: "English",
@@ -94,7 +192,7 @@ const MENU_ITEMS_USER = [
 ];
 
 const cx = classNames.bind(styles);
-function Header(props) {
+function Header({ className }) {
   const [hasAccount, setHasAccount] = useState(false);
   const handleMenuOnChange = (menuItem) => {
     console.log(menuItem);
@@ -112,7 +210,7 @@ function Header(props) {
   MENU_ITEMS_USER.find((item) => item.title === "Logout").onClick =
     handleOnLogout;
   return (
-    <header className={cx("wrapper")}>
+    <header className={cx("wrapper", className)}>
       <div className={cx("inner")}>
         <Link to={routes.home} className={cx("logo")}>
           <Image src={images.logo} alt="Tiktok" />

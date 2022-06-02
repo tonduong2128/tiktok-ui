@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+// eslint-disable-next-line
 import { publicRoute, privateRoute } from "~/routes/index";
-import { DefaultLayout } from "~/components/Layout";
+import { DefaultLayout } from "~/Layout";
 import React, { Fragment } from "react";
 
 function App() {

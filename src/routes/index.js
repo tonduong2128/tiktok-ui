@@ -3,7 +3,7 @@ import Upload from "../pages/Upload";
 import Following from "../pages/Following/indes";
 import Home from "../pages/Home/indes";
 import NotFound from "../pages/NotFound";
-import { HeaderOnly } from "../components/Layout";
+import { HeaderOnly } from "~/Layout";
 import Search from "../pages/Search/indes";
 import routes from "~/config/routes";
 

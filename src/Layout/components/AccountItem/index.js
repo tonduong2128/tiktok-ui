@@ -1,15 +1,17 @@
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import classNames from "classnames/bind";
+import React from "react";
 import Button from "~/components/Button";
 import Image from "~/components/Image";
 import styles from "./AccountItem.module.scss";
 
 const cx = classNames.bind(styles);
-function AccountItem({ account }) {
+
+const AccountItem = React.forwardRef(({ account }, ref) => {
   const { full_name, avatar, nickname, tick } = account;
   return (
-    <Button empty className={cx("wrapper")} href={`/@${nickname}`}>
+    <Button ref={ref} empty className={cx("wrapper")} href={`/@${nickname}`}>
       <Image
         className={cx("avatar")}
         src={avatar}
@@ -26,6 +28,6 @@ function AccountItem({ account }) {
       </div>
     </Button>
   );
-}
+});
 
 export default AccountItem;

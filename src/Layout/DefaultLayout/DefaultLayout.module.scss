@@ -5,6 +5,7 @@
 }
 .container {
   width: var(--default-layout-header-width, 1150px);
+  padding-top: var(--default-layout-header-height);
   display: flex;
   justify-content: space-between;
 }
@@ -15,4 +16,7 @@
   width: 692px;
   background-color: #ccc;
   flex: 1;
+}
+.header {
+  position: fixed;
 }
