@@ -1,0 +1,56 @@
+.wrapper {
+  width: 100%;
+  height: var(--default-layout-header-height, 60px);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: center;
+  background-color: var(--white);
+}
+.wrapper .inner {
+  height: 100%;
+  width: var(--default-layout-header-width);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.wrapper .inner .logo img {
+  height: 42px;
+  width: 118px;
+}
+.wrapper .inner .actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  list-style: none;
+}
+.wrapper .inner .actions li .btn-icon {
+  min-width: 0;
+  padding: 0px 10px;
+}
+.wrapper .inner .actions li .btn-content {
+  margin-right: 10px;
+}
+.wrapper .inner .actions li .tooltip {
+  color: var(--white);
+  font-weight: 500;
+  padding: 6px 4px;
+  border-radius: 8px;
+}
+.wrapper .inner .actions .btn-more {
+  font-size: 18px;
+  padding: 10px 4px;
+  background-color: transparent;
+}
+.wrapper .inner .actions .avatar {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  background-color: transparent;
+  cursor: pointer;
+}
+.wrapper .inner .actions .avatar > * {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-position: center;
+}/*# sourceMappingURL=Header.module.css.map */

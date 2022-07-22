@@ -6,6 +6,7 @@ import NotFound from "../pages/NotFound";
 import { HeaderOnly } from "~/Layout";
 import Search from "../pages/Search/indes";
 import routes from "~/config/routes";
+import { Live } from "~/pages/Live";
 
 const publicRoute = [
   // không cần đăng nhập
@@ -14,6 +15,7 @@ const publicRoute = [
   { path: routes.profile, component: Profile },
   { path: routes.upload, component: Upload, layout: HeaderOnly },
   { path: routes.search, component: Search, layout: null },
+  { path: routes.live, component: Live },
   { path: routes.NotFound, component: NotFound, layout: null },
 ];
 const privateRoute = [

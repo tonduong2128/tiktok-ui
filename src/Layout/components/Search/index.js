@@ -8,7 +8,7 @@ import HeadlessTippy from "@tippyjs/react/headless";
 import classNames from "classnames/bind";
 import React, { useEffect, useRef, useState } from "react";
 import * as request from "~/services/searchService";
-import Button from "~/components/Button";
+import { Button } from "~/components/Button";
 import { useDebounce } from "~/hooks";
 import AccountItem from "../AccountItem";
 import { Wrapper as PopperWrapper } from "../Popper";

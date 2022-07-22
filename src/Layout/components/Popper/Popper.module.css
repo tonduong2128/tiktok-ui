@@ -1,0 +1,8 @@
+.wrapper {
+  width: 100%;
+  background-color: var(--white);
+  box-shadow: 3px 3px 4px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  max-height: min(100vh - 96px - 60px, 734px);
+  padding: 8px 0;
+}/*# sourceMappingURL=Popper.module.css.map */

@@ -1,0 +1,44 @@
+.menu {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 10px;
+  position: relative;
+}
+.menu-item {
+  width: 100%;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  border-radius: 6px;
+
+  &:hover {
+    background-color: var(--grey-3);
+  }
+  .icon {
+    width: 23.47px;
+    height: 21px;
+  }
+  .title {
+    padding-left: 8px;
+    font-size: 1.8rem;
+    font-weight: 600;
+    height: 100%;
+  }
+
+  &.active .icon,
+  &.active .title {
+    color: var(--primary);
+  }
+}
+.separate::after {
+  content: "";
+  position: absolute;
+  background-color: var(--grey-3);
+  left: 6px;
+  right: 6px;
+  height: 1px;
+  bottom: -2px;
+  text-align: center;
+}

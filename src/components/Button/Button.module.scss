@@ -52,7 +52,15 @@
   min-width: 88px;
   padding: 6px 14px;
 }
+.midle {
+  font-size: 1.8rem;
+  padding: 10px;
+}
 .large {
+  font-size: 2rem;
   padding: 14px 16px;
   min-width: 140px;
+}
+.textPrimary {
+  color: var(--primary);
 }

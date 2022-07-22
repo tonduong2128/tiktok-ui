@@ -1,8 +1,9 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 // eslint-disable-next-line
-import { publicRoute, privateRoute } from "~/routes/index";
+import { Fragment } from "react";
 import { DefaultLayout } from "~/Layout";
-import React, { Fragment } from "react";
+import { publicRoute } from "~/routes/index";
+import PrivateComponent from "./Layout/components/Route/PrivateComponent";
 
 function App() {
   return (
@@ -18,9 +19,11 @@ function App() {
                 key={indes}
                 path={route.path}
                 element={
-                  <Layout>
-                    <Page />
-                  </Layout>
+                  <PrivateComponent isPrivate={false}>
+                    <Layout>
+                      <Page />
+                    </Layout>
+                  </PrivateComponent>
                 }
               />
             );

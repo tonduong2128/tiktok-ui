@@ -1,0 +1,15 @@
+.menu {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.menu-item {
+  width: 100%;
+  margin-left: 0 !important;
+}
+
+.menu-item:hover {
+  background-color: var(--grey-3);
+} /*# sourceMappingURL=Menu.module.css.map */
